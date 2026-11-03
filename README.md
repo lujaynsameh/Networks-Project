@@ -1,17 +1,15 @@
 # Networks-Project 
-hello  heyy
-Janaaaaa juju 
-HEYYYYYYYY YAYYYYY
- this was kinda successful :) 
 
- lujy was here 
-this is me 
-hello jessyyyyyyy
-lujyyyjessyyjanaa
+- Person 1
+#### Lujayn Sameh :
 
-<<<<<<< HEAD
-bagarab haga aho
-=======
-bagarab haga aho.   
-jessyyyymalakkkk
->>>>>>> origin/jassens-branch
+
+- Person 2
+#### Jana Khaled :
+
+- Person 3
+#### Jassen Malak: 
+
+- Person 4 
+#### Hala Maged: 
+
