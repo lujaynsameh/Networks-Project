@@ -9,4 +9,9 @@ this is me
 hello jessyyyyyyy
 lujyyyjessyyjanaa
 
+<<<<<<< HEAD
 bagarab haga aho
+=======
+bagarab haga aho.   
+jessyyyymalakkkk
+>>>>>>> origin/jassens-branch
