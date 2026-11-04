@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat (test client)</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 12px; }
+  #log { height: 60vh; overflow-y: auto; border: 1px solid #ccc; padding: 8px; margin-bottom: 8px; }
+  form { display: flex; gap: 8px; }
+  input { flex: 1; padding: 10px; font-size: 1rem; }
+  button { padding: 10px 16px; font-size: 1rem; }
+</style>
+</head>
+<body>
+<!-- Placeholder client so Person 1 can test the server.
+     Person 4 replaces this with the real UI. -->
+<h3>Test client <small id="state">connecting…</small></h3>
+<div id="log"></div>
+<form id="f"><input id="msg" autocomplete="off" placeholder="Type a message"><button>Send</button></form>
+<script>
+const log = document.getElementById("log"), state = document.getElementById("state");
+const ws = new WebSocket("ws://" + location.hostname + ":8081");
+ws.onopen = () => state.textContent = "connected";
+ws.onclose = () => state.textContent = "disconnected";
+ws.onmessage = e => { const d = document.createElement("div"); d.textContent = e.data; log.appendChild(d); log.scrollTop = log.scrollHeight; };
+document.getElementById("f").onsubmit = e => {
+  e.preventDefault();
+  const i = document.getElementById("msg");
+  if (i.value && ws.readyState === 1) { ws.send(i.value); i.value = ""; }
+};
+</script>
+</body>
+</html>

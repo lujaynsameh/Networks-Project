@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server Metrics</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; padding: 16px; background: #111; color: #eee; }
+  h1 { font-size: 1.2rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .card { background: #1e1e1e; border-radius: 8px; padding: 12px; }
+  .label { font-size: .75rem; color: #999; }
+  .value { font-size: 1.6rem; font-weight: 600; }
+  #status { font-size: .75rem; color: #999; margin-top: 12px; }
+</style>
+</head>
+<body>
+<h1>Chat server metrics</h1>
+<div class="grid" id="grid"></div>
+<div id="status">loading…</div>
+<script>
+const labels = {
+  activeConnections: "Active connections",
+  totalConnections: "Total connections",
+  totalMessages: "Total messages",
+  messagesPerSecond: "Messages / second",
+  bytesReceived: "Bytes received",
+  bytesSent: "Bytes sent",
+  uptimeSeconds: "Uptime (s)"
+};
+async function refresh() {
+  try {
+    const res = await fetch("/api/metrics", { cache: "no-store" });
+    const m = await res.json();
+    document.getElementById("grid").innerHTML = Object.keys(labels).map(k =>
+      `<div class="card"><div class="label">${labels[k]}</div><div class="value">${m[k]}</div></div>`
+    ).join("");
+    document.getElementById("status").textContent = "updated " + new Date().toLocaleTimeString();
+  } catch (e) {
+    document.getElementById("status").textContent = "server unreachable";
+  }
+}
+refresh();
+setInterval(refresh, 1000);
+</script>
+</body>
+</html>
